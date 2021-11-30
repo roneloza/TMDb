@@ -43,6 +43,7 @@
 		CECC7141274F150F00AE8FEA /* TMDbConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECC7140274F150F00AE8FEA /* TMDbConstants.swift */; };
 		CECC7147274F35AD00AE8FEA /* MovieCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECC7146274F35AD00AE8FEA /* MovieCardView.swift */; };
 		CECC714B274F379500AE8FEA /* MovieDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECC714A274F379500AE8FEA /* MovieDetailView.swift */; };
+		CEFECACE2756ED2100E9BD8D /* MoviesViewUITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFECACD2756ED2100E9BD8D /* MoviesViewUITest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -116,6 +117,7 @@
 		CECC7140274F150F00AE8FEA /* TMDbConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDbConstants.swift; sourceTree = "<group>"; };
 		CECC7146274F35AD00AE8FEA /* MovieCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCardView.swift; sourceTree = "<group>"; };
 		CECC714A274F379500AE8FEA /* MovieDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailView.swift; sourceTree = "<group>"; };
+		CEFECACD2756ED2100E9BD8D /* MoviesViewUITest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesViewUITest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -218,6 +220,7 @@
 			isa = PBXGroup;
 			children = (
 				CEA5048B274EBDA4005BE8D3 /* TMDbUITests.swift */,
+				CEFECACD2756ED2100E9BD8D /* MoviesViewUITest.swift */,
 				CEA5048D274EBDA4005BE8D3 /* Info.plist */,
 			);
 			path = TMDbUITests;
@@ -469,6 +472,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEA5048C274EBDA4005BE8D3 /* TMDbUITests.swift in Sources */,
+				CEFECACE2756ED2100E9BD8D /* MoviesViewUITest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -781,7 +785,7 @@
 			repositoryURL = "https://github.com/roneloza/PrograManiacsSwiftUI.git";
 			requirement = {
 				kind = exactVersion;
-				version = 1.0.1;
+				version = 1.0.2;
 			};
 		};
 		CEC89A3C274F4F0F006291F7 /* XCRemoteSwiftPackageReference "SQLite.swift" */ = {

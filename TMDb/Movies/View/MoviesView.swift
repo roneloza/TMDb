@@ -35,6 +35,8 @@ struct MoviesView: ReduxStoreView {
                                         }
                                 }
                             }
+                            .accessibilityLabel("searchMoviesList")
+                            .accessibilityIdentifier("searchMoviesList")
                         }
                     } else {
                         List {
