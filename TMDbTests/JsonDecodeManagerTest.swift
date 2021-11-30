@@ -8,7 +8,7 @@
 import XCTest
 @testable import TMDb
 
-class MovieResultTest: XCTestCase {
+class JsonDecodeManagerTest: XCTestCase {
     
     // MARK: Simpler check example
     // Use this option if your models match the shape of the input JSON.
