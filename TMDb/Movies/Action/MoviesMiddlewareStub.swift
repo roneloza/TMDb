@@ -20,6 +20,7 @@ final class MoviesMiddlewareStub: MoviesMiddlewareDatasource {
         JsonDecodeManager()
     }()
     var results: [MovieResult] = []
+    var videoMovieResult: VideoMovieResult = .init(key: "")
     
     init(returning result: Result<Data, Error>) {
         self.result = result
@@ -61,7 +62,7 @@ final class MoviesMiddlewareStub: MoviesMiddlewareDatasource {
                     guard let response = self.decodeManager.decode(data: data, type: MovieResponse.self) else {
                         return
                     }
-                    let results = response.results.map { $0.build(categoryType: .popular) }
+                    self.results = response.results.map { $0.build(categoryType: .popular) }
                 })
                 .store(in: &self.subscriptions)
         }
@@ -81,7 +82,7 @@ final class MoviesMiddlewareStub: MoviesMiddlewareDatasource {
                     guard let response = self.decodeManager.decode(data: data, type: MovieResponse.self) else {
                         return
                     }
-                    let results = response.results.map { $0.build(categoryType: .upcoming) }
+                    self.results = response.results.map { $0.build(categoryType: .upcoming) }
                 })
                 .store(in: &self.subscriptions)
         }
@@ -101,6 +102,7 @@ final class MoviesMiddlewareStub: MoviesMiddlewareDatasource {
                     guard let response = self.decodeManager.decode(data: data, type: MovieResponse.self) else {
                         return
                     }
+                    self.results = response.results
                 })
                 .store(in: &self.subscriptions)
         }
@@ -130,6 +132,7 @@ final class MoviesMiddlewareStub: MoviesMiddlewareDatasource {
                     }
                     let videoId = response.results.last?.key ?? ""
                     completion?(videoId)
+                    self.videoMovieResult = response.results.last ?? self.videoMovieResult
                 })
                 .store(in: &self.subscriptions)
         }
