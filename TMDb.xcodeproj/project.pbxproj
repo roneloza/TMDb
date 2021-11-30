@@ -34,7 +34,7 @@
 		CEA85F442756B41700C26693 /* XCTestCase+JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA85F432756B41700C26693 /* XCTestCase+JSON.swift */; };
 		CEA85F482756B49900C26693 /* movies.json in Resources */ = {isa = PBXBuildFile; fileRef = CEA85F472756B49900C26693 /* movies.json */; };
 		CEA85F552756B99800C26693 /* movie.json in Resources */ = {isa = PBXBuildFile; fileRef = CEA85F4B2756B4BA00C26693 /* movie.json */; };
-		CEA85F5D2756BE8A00C26693 /* NetworkManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA85F5C2756BE8A00C26693 /* NetworkManagerTest.swift */; };
+		CEA85F5D2756BE8A00C26693 /* MoviesMiddlewareTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA85F5C2756BE8A00C26693 /* MoviesMiddlewareTest.swift */; };
 		CEA85F612756C71D00C26693 /* MoviesMiddlewareStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA85F602756C71D00C26693 /* MoviesMiddlewareStub.swift */; };
 		CEA85F652756C7A400C26693 /* URLSessionNetworkManagerStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA85F642756C7A400C26693 /* URLSessionNetworkManagerStub.swift */; };
 		CEC89A33274F47DE006291F7 /* JsonDecodeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC89A32274F47DE006291F7 /* JsonDecodeManager.swift */; };
@@ -108,7 +108,7 @@
 		CEA85F432756B41700C26693 /* XCTestCase+JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+JSON.swift"; sourceTree = "<group>"; };
 		CEA85F472756B49900C26693 /* movies.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = movies.json; sourceTree = "<group>"; };
 		CEA85F4B2756B4BA00C26693 /* movie.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = movie.json; sourceTree = "<group>"; };
-		CEA85F5C2756BE8A00C26693 /* NetworkManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerTest.swift; sourceTree = "<group>"; };
+		CEA85F5C2756BE8A00C26693 /* MoviesMiddlewareTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesMiddlewareTest.swift; sourceTree = "<group>"; };
 		CEA85F602756C71D00C26693 /* MoviesMiddlewareStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesMiddlewareStub.swift; sourceTree = "<group>"; };
 		CEA85F642756C7A400C26693 /* URLSessionNetworkManagerStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionNetworkManagerStub.swift; sourceTree = "<group>"; };
 		CEC89A32274F47DE006291F7 /* JsonDecodeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonDecodeManager.swift; sourceTree = "<group>"; };
@@ -206,7 +206,7 @@
 				CEA50480274EBDA4005BE8D3 /* TMDbTests.swift */,
 				CEA50482274EBDA4005BE8D3 /* Info.plist */,
 				CEA85F3F2756B39700C26693 /* JsonDecodeManagerTest.swift */,
-				CEA85F5C2756BE8A00C26693 /* NetworkManagerTest.swift */,
+				CEA85F5C2756BE8A00C26693 /* MoviesMiddlewareTest.swift */,
 				CEA85F432756B41700C26693 /* XCTestCase+JSON.swift */,
 				CEA85F4B2756B4BA00C26693 /* movie.json */,
 				CEA85F472756B49900C26693 /* movies.json */,
@@ -457,7 +457,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEA85F5D2756BE8A00C26693 /* NetworkManagerTest.swift in Sources */,
+				CEA85F5D2756BE8A00C26693 /* MoviesMiddlewareTest.swift in Sources */,
 				CEA85F442756B41700C26693 /* XCTestCase+JSON.swift in Sources */,
 				CEA50481274EBDA4005BE8D3 /* TMDbTests.swift in Sources */,
 				CEA85F402756B39700C26693 /* JsonDecodeManagerTest.swift in Sources */,

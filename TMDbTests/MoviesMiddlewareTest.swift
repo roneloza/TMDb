@@ -9,11 +9,11 @@ import XCTest
 import Combine
 @testable import TMDb
 
-class NetworkManagerTest: XCTestCase {
+class MoviesMiddlewareTest: XCTestCase {
     
     var cancellables = Set<AnyCancellable>()
     
-    func testWhenRequestSucceedsPublishesDecodedMovieResponse() throws {
+    func testWhenRequestSucceedsPublishesDecodedTopRated() throws {
         let json = """
     {
         "page": 1,
@@ -63,7 +63,7 @@ class NetworkManagerTest: XCTestCase {
     """
         let data = try XCTUnwrap(json.data(using: .utf8))
         let moviesMiddleware = MoviesMiddlewareStub(returning: .success(data))
-        let expectation = XCTestExpectation(description: "Publishes decoded MovieResponse")
+        let expectation = XCTestExpectation(description: "Publishes decoded TopRated")
         moviesMiddleware.getTopRated()
         XCTAssertEqual(moviesMiddleware.results.count, 2)
         XCTAssertEqual(moviesMiddleware.results.first?.title, "The Shawshank Redemption")
