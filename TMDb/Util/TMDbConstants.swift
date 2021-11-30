@@ -11,7 +11,7 @@ struct TMDbConstants {
     
     struct Api {
         
-        static let Key = "0942529e191d0558f888245403b4dca7"
+        static let Key = "39b1e0b797714dc728457343c5b3e401"
         static let BaseURLString = "https://api.themoviedb.org"
         static let YouTubeBaseURLString = "https://www.youtube.com/watch?v="
         static let PosterURLString = "https://www.themoviedb.org/t/p/w220_and_h330_face"
