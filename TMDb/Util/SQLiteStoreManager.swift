@@ -59,7 +59,7 @@ final class SQLiteStoreManagerMovie: StoreManagerMovie {
     func insertMovies(movies: [MovieResult]) {
         do {
             let db = try Connection("\(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0])/Database.db")
-            let stmt = try db.prepare("INSERT INTO Movie (id, title, releaseDate, imageUrl, overview, youTubeKey, categoryType) VALUES (?, ?, ?, ?, ?, ?, ?)")
+            let stmt = try db.prepare("INSERT INTO Movie (id, title, releaseDate, imageUrl, imageBlob, overview, youTubeKey, categoryType) VALUES (?, ?, ?, ?, ?, ?, ?, ?)")
             for movie in movies {
                 if let categoryType = try? db.scalar("SELECT categoryType FROM Movie WHERE id = \(movie.id)") as? String {
                     var categories = categoryType.split(separator: ",").map(String.init)
@@ -67,10 +67,12 @@ final class SQLiteStoreManagerMovie: StoreManagerMovie {
                     let newMovie = movie.build(categoryTypes: Array(Set(categories)))
                     self.updateMovies(movies: [newMovie])
                 } else {
+                    let data = (movie.imageData as NSData)
                     try stmt.run(movie.id,
                                  movie.title,
                                  movie.releaseDate,
                                  movie.imageUrl,
+                                 Blob(bytes: data.bytes, length: data.count),
                                  movie.overview,
                                  movie.youTubeKey,
                                  movie.categoryType.rawValue.description)

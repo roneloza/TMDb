@@ -15,19 +15,19 @@ final class MoviesReducer: ReduxReducer<MoviesState> {
             return state.build(categories: self.buildCategories(state: state,
                                                                 data: data,
                                                                 id: MovieCategoryType.topRated,
-                                                                index: 0),
+                                                                page: state.topRatedPage),
                                topRatedIsLoading: false)
         case let MoviesAction.setPopular(data):
             return state.build(categories: self.buildCategories(state: state,
                                                                 data: data,
                                                                 id: MovieCategoryType.popular,
-                                                                index: 1),
+                                                                page: state.popularPage),
                                popularIsLoading: false)
         case let MoviesAction.setUpcoming(data):
             return state.build(categories: self.buildCategories(state: state,
                                                                 data: data,
                                                                 id: MovieCategoryType.upcoming,
-                                                                index: 2),
+                                                                page: state.upcomingPage),
                                upcomingIsLoading: false)
         case let MoviesAction.setFilteredMovies(data):
             var movies = state.movies
@@ -48,15 +48,17 @@ final class MoviesReducer: ReduxReducer<MoviesState> {
     private func buildCategories(state: MoviesState,
                                  data: [MovieResult],
                                  id: MovieCategoryType,
-                                 index: Int) -> [MovieCategory] {
-        var movies = state.categories.filter { $0.id == id }.last!.movies
-        if state.topRatedPage > 1 {
+                                 page: Int) -> [MovieCategory] {
+        guard let index = state.categories.lastIndex(where: { $0.id == id }),
+              let category = state.categories.filter({ $0.id == id }).last else { return  [] }
+        var movies = category.movies
+        if page > 1 {
             movies.append(contentsOf: data)
         } else {
             movies = data
         }
         var categories = state.categories
-        categories[index] = state.categories.filter { $0.id == id }.last!.build(movies: movies)
+        categories[index] = category.build(movies: movies)
         return categories
     }
     

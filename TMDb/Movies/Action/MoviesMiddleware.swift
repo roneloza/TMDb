@@ -73,6 +73,7 @@ final class MoviesMiddleware: ReduxMiddleware<MoviesState>, MoviesMiddlewareData
                     }
                 }, receiveValue: { data in
                     guard let response = self.decodeManager.decode(data: data, type: MovieResponse.self) else {
+                        self.store?.dispatch(MoviesAction.setTopRated([]))
                         return
                     }
                     let results = response.results.map { $0.build(categoryType: .topRated) }
@@ -98,6 +99,7 @@ final class MoviesMiddleware: ReduxMiddleware<MoviesState>, MoviesMiddlewareData
                     }
                 }, receiveValue: { data in
                     guard let response = self.decodeManager.decode(data: data, type: MovieResponse.self) else {
+                        self.store?.dispatch(MoviesAction.setPopular([]))
                         return
                     }
                     let results = response.results.map { $0.build(categoryType: .popular) }
@@ -123,6 +125,7 @@ final class MoviesMiddleware: ReduxMiddleware<MoviesState>, MoviesMiddlewareData
                     }
                 }, receiveValue: { data in
                     guard let response = self.decodeManager.decode(data: data, type: MovieResponse.self) else {
+                        self.store?.dispatch(MoviesAction.setUpcoming([]))
                         return
                     }
                     let results = response.results.map { $0.build(categoryType: .upcoming) }
@@ -148,6 +151,7 @@ final class MoviesMiddleware: ReduxMiddleware<MoviesState>, MoviesMiddlewareData
                     }
                 }, receiveValue: { data in
                     guard let response = self.decodeManager.decode(data: data, type: MovieResponse.self) else {
+                        self.store?.dispatch(MoviesAction.setFilteredMovies([]))
                         return
                     }
                     self.storeManager.insertMovies(movies: response.results)

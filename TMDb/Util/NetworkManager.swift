@@ -20,6 +20,7 @@ final class URLSessionNetworkManager: NetworkManager {
     func dataTask(url: URL?) -> Future<Data, Error> {
         Future { promise in
             if let url = url {
+                print(url)
                 let task = URLSession.shared.dataTask(with: url) { data, response, error in
                     if let error = error {
                         promise(.failure(error))
