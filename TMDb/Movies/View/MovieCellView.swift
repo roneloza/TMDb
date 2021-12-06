@@ -12,21 +12,21 @@ import PrograManiacsSwiftUI
 
 struct MovieCellView: View {
     
-    weak var store: ReduxStore<MoviesState>? = nil
-    let movie: MovieResult
+    private weak var useCase: MoviesUseCases? = nil
+    private let movie: MovieResult
     
     var body: some View {
         HStack(alignment: .top) {
             ImageView(withURL: "\(TMDbConstants.Api.PosterURLString)\(self.movie.imageUrl)",
                       completionGetImage: { imageView in
-                        self.store?.state.getImageData(
+                        self.useCase?.getImageData(
                             movie: movie,
                             completion: { data in
                                 imageView.setImage(UIImage(data: data) ?? UIImage())
                             })
                       },
                       completionSetImage: { data in
-                        self.store?.state.setImageData(movie: movie.build(imageData: data))
+                        self.useCase?.setImageData(movie: movie.build(imageData: data))
                       })
                 .aspectRatio(contentMode: .fit)
                 .cornerRadius(8)
@@ -40,6 +40,12 @@ struct MovieCellView: View {
                 Spacer()
             }
         }
+    }
+    
+    init(useCase: MoviesUseCases? = nil,
+         movie: MovieResult) {
+        self.useCase = useCase
+        self.movie = movie
     }
     
 }

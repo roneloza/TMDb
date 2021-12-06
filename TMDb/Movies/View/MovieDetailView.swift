@@ -11,8 +11,8 @@ import PrograManiacsSwiftUI
 
 struct MovieDetailView: View {
     
-    weak var store: ReduxStore<MoviesState>? = nil
-    let movie: MovieResult
+    private weak var useCase: MoviesUseCases? = nil
+    private let movie: MovieResult
     
     var body: some View {
         ZStack {
@@ -21,18 +21,18 @@ struct MovieDetailView: View {
                     ZStack {
                         ImageView(withURL: "\(TMDbConstants.Api.PosterURLString)\(self.movie.imageUrl)",
                                   completionGetImage: { imageView in
-                                    self.store?.state.getImageData(
+                                    self.useCase?.getImageData(
                                         movie: movie,
                                         completion: { data in
                                             imageView.setImage(UIImage(data: data) ?? UIImage())
                                         })
                                   },
                                   completionSetImage: { data in
-                                    self.store?.state.setImageData(movie: movie.build(imageData: data))
+                                    self.useCase?.setImageData(movie: movie.build(imageData: data))
                                   })
                             .aspectRatio(contentMode: .fit)
                             .cornerRadius(8)
-                        NavigationLink(destination: MovieVideoView(store: self.store,
+                        NavigationLink(destination: MovieVideoView(useCase: self.useCase,
                                                                    movie: self.movie)) {
                             Image(systemName: "play.circle")
                                 .resizable()
@@ -72,6 +72,12 @@ struct MovieDetailView: View {
         .onAppear {
             UIScrollView.appearance().backgroundColor = .clear
         }
+    }
+    
+    init(useCase: MoviesUseCases? = nil,
+         movie: MovieResult) {
+        self.useCase = useCase
+        self.movie = movie
     }
     
 }

@@ -28,12 +28,11 @@ struct YoutubeWebView : UIViewRepresentable {
     
 }
 
-
 struct MovieVideoView: View {
     
-    weak var store: ReduxStore<MoviesState>? = nil
+    private weak var useCase: MoviesUseCases? = nil
+    private let movie: MovieResult
     @State private var videoId: String = ""
-    let movie: MovieResult
     
     var body: some View {
         ZStack {
@@ -44,10 +43,16 @@ struct MovieVideoView: View {
         .edgesIgnoringSafeArea(.all)
         .background(Color.black)
         .onAppear {
-            self.store?.state.getVideo(movieId: self.movie.id, completion: { videoId in
+            self.useCase?.getVideo(movieId: self.movie.id, completion: { videoId in
                 self.videoId = videoId
             })
         }
+    }
+    
+    init(useCase: MoviesUseCases? = nil,
+         movie: MovieResult) {
+        self.useCase = useCase
+        self.movie = movie
     }
     
 }

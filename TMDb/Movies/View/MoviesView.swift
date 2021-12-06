@@ -11,27 +11,28 @@ import PrograManiacsSwiftUI
 
 struct MoviesView: ReduxStoreView {
     
-    @ObservedObject var store: ReduxStore<MoviesState>
+    @ObservedObject private(set) var store: ReduxStore<MoviesState>
+    private var useCase: MoviesUseCases
     
     var body: some View {
         NavigationView {
             ZStack {
                 VStack {
-                    SearchBar(text: self.$store.state.searchText.onChange({ text in
-                        self.store.state.getFilteredMovies(text: text,
-                                                           page: 1)
+                    SearchBar(text: self.$store.state.model.searchText.onChange({ text in
+                        self.useCase.getFilteredMovies(text: text,
+                                                       page: 1)
                     }))
-                    if !self.store.state.searchText.isEmpty {
+                    if !self.store.state.model.searchText.isEmpty {
                         List {
-                            ForEach(self.store.state.movies) { movie in
+                            ForEach(self.store.state.model.movies) { movie in
                                 NavigationLink(destination:
-                                                MovieDetailView(store: self.store,
-                                                                            movie: movie)) {
-                                    MovieCellView(store: self.store,
+                                                MovieDetailView(useCase: self.useCase,
+                                                                movie: movie)) {
+                                    MovieCellView(useCase: self.useCase,
                                                   movie: movie)
                                         .frame(height: 100)
                                         .onAppear {
-                                            self.store.state.getFilteredMoviesPagination(item: movie)
+                                            self.useCase.getFilteredMoviesPagination(item: movie)
                                         }
                                 }
                             }
@@ -41,7 +42,7 @@ struct MoviesView: ReduxStoreView {
                     } else {
                         List {
                             LazyVStack {
-                                ForEach(self.store.state.categories) { category in
+                                ForEach(self.store.state.model.categories) { category in
                                     Section(header:
                                                 Text(category.id.title)
                                                 .foregroundColor(.black)
@@ -52,18 +53,18 @@ struct MoviesView: ReduxStoreView {
                                             LazyHStack(spacing: 20) {
                                                 ForEach(category.movies) { movie in
                                                     NavigationLink(destination:
-                                                                    MovieDetailView(store: self.store,
-                                                                                                movie: movie)) {
-                                                        MovieCardView(store:self.store,
+                                                                    MovieDetailView(useCase: self.useCase,
+                                                                                    movie: movie)) {
+                                                        MovieCardView(useCase: self.useCase,
                                                                       movie: movie)
                                                             .onAppear {
                                                                 switch category.id {
                                                                 case .topRated:
-                                                                    self.store.state.getTopRatedPagination(item: movie)
+                                                                    self.useCase.getTopRatedPagination(item: movie)
                                                                 case .popular:
-                                                                    self.store.state.getPopularPagination(item: movie)
+                                                                    self.useCase.getPopularPagination(item: movie)
                                                                 case .upcoming:
-                                                                    self.store.state.getUpcomingPagination(item: movie)
+                                                                    self.useCase.getUpcomingPagination(item: movie)
                                                                 }
                                                             }
                                                     }
@@ -83,15 +84,15 @@ struct MoviesView: ReduxStoreView {
         .background(Color.white)
         .onAppear {
             UITableView.appearance().backgroundColor = .clear
-            self.store.state.getTopRated(page: 1)
-            self.store.state.getPopular(page: 1)
-            self.store.state.getUpcoming(page: 1)
+            self.useCase.getTopRated(page: 1)
+            self.useCase.getPopular(page: 1)
+            self.useCase.getUpcoming(page: 1)
         }
     }
     
-    internal init(store: ReduxStore<MoviesState>) {
+    init(store: ReduxStore<MoviesState>) {
         self.store = store
-        self.store.state.store = self.store
+        self.useCase = MoviesStateUseCase(store: store)
     }
     
 }
@@ -99,7 +100,7 @@ struct MoviesView: ReduxStoreView {
 struct MoviesView_Previews: PreviewProvider {
     static let store = ReduxStore<MoviesState>(
         state:
-            .init(categories: [
+            .init(model: MoviesStateModel(categories: [
                 .init(id: .topRated,
                       movies: [
                         .init(id: 1,
@@ -118,7 +119,7 @@ struct MoviesView_Previews: PreviewProvider {
                               imageUrl: "https://www.themoviedb.org/t/p/w220_and_h330_face/2CAL2433ZeIihfX1Hb2139CX0pW.jpg",
                               overview: "A police brigade working in the dangerous northern neighborhoods of Marseille, where the level of crime is higher than anywhere else in France.")
                       ])
-            ]),
+            ])),
         reducer: MoviesReducer())
     static var previews: some View {
         MoviesView(store: self.store)
