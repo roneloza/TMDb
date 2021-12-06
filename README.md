@@ -14,9 +14,10 @@ Frameworks & drivers:
 Interface Adapters:
 - MoviesReducer: Encargado de crea un nuevo State, segun que Action reciba.
 - MoviesView, MovieCellView, MovieCardView, MovieDetailView, YoutubeWebView: GUI
+- MoviesState: almacena el modelo. implementa interface MoviesStateModel
 
 Use Cases:
-- MoviesState: almacena el modelo y despacha los casos de usos. implementa interface MoviesStateUseCases, MoviesStateModel
+- MoviesStateUseCase:  Despacha los casos de usos. implementa interface MoviesStateUseCases
 - MoviesMiddleware: Orquesta la ejecucion de una Action
 
 Entities:
