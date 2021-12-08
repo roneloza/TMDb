@@ -15,9 +15,10 @@ Interface Adapters:
 - MoviesReducer: Encargado de crea un nuevo State, segun que Action reciba.
 - MoviesView, MovieCellView, MovieCardView, MovieDetailView, YoutubeWebView: GUI
 - MoviesState: almacena el modelo. implementa interface MoviesStateModel
+- MoviesStatePresenter: Presenta los datos a la View. implement al interface MoviesStateUseCaseOutput
 
 Use Cases:
-- MoviesStateUseCase:  Despacha los casos de usos. implementa interface MoviesStateUseCases
+- MoviesStateUseCase:  Despacha los casos de usos. implementa interface MoviesStateUseCaseInput
 - MoviesMiddleware: Orquesta la ejecucion de una Action
 
 Entities:
