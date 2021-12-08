@@ -41,7 +41,7 @@ final class MoviesStatePresenter: MoviesUseCaseOutput {
     weak var store: ReduxStore<MoviesState>? = nil
     
     init(store: ReduxStore<MoviesState>? = nil) {
-        self.store = store ?? self.store
+        self.store = store
     }
     
     func setTopRated(_ results: [MovieResult]) {
