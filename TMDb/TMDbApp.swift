@@ -24,8 +24,7 @@ struct TMDbApp: App {
                                 .init(id: MovieCategoryType.upcoming,
                                       movies: [])
                             ])),
-                        reducer: MoviesReducer(),
-                        middlewares: [MoviesMiddleware()]))
+                        reducer: MoviesReducer()))
         }
     }
     

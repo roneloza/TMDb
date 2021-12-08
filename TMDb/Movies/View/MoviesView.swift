@@ -12,7 +12,7 @@ import PrograManiacsSwiftUI
 struct MoviesView: ReduxStoreView {
     
     @ObservedObject private(set) var store: ReduxStore<MoviesState>
-    private var useCase: MoviesUseCases
+    private var useCase: MoviesUseCaseInput
     
     var body: some View {
         NavigationView {
@@ -92,7 +92,9 @@ struct MoviesView: ReduxStoreView {
     
     init(store: ReduxStore<MoviesState>) {
         self.store = store
-        self.useCase = MoviesStateUseCase(store: store)
+        self.useCase = MoviesStateUseCase(store: store,
+                                          presenter: MoviesStatePresenter(store: store))
+        self.store.addMiddleware(middleware: MoviesMiddleware(presenter: self.useCase.presenter))
     }
     
 }

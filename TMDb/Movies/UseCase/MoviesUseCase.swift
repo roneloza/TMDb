@@ -8,7 +8,20 @@
 import Foundation
 import ReduxCore
 
-protocol MoviesUseCases: class {
+protocol MoviesUseCaseOutput: class {
+    
+    func setTopRated(_ results: [MovieResult])
+    func setPopular(_ results: [MovieResult])
+    func setUpcoming(_ results: [MovieResult])
+    func setImageData(movie: MovieResult)
+    func setFilteredMovies(_ results: [MovieResult])
+    func setVideoId(_ videoId: String)
+    
+}
+
+protocol MoviesUseCaseInput: class {
+    
+    var presenter: MoviesUseCaseOutput? { get }
     
     func getTopRated(page: Int)
     func getTopRatedPagination(item: MovieResult)
@@ -18,18 +31,54 @@ protocol MoviesUseCases: class {
     func getUpcomingPagination(item: MovieResult)
     func getFilteredMovies(text: String, page: Int)
     func getFilteredMoviesPagination(item: MovieResult)
-    func setImageData(movie: MovieResult)
     func getImageData(movie: MovieResult, completion: ((Data) -> Void)?)
     func getVideo(movieId: Int64, completion: ((_ videoId: String) -> Void)?)
     
 }
 
-final class MoviesStateUseCase: MoviesUseCases {
+final class MoviesStatePresenter: MoviesUseCaseOutput {
     
     weak var store: ReduxStore<MoviesState>? = nil
     
     init(store: ReduxStore<MoviesState>? = nil) {
         self.store = store ?? self.store
+    }
+    
+    func setTopRated(_ results: [MovieResult]) {
+        self.store?.dispatch(MoviesAction.setTopRated(results))
+    }
+    
+    func setPopular(_ results: [MovieResult]) {
+        self.store?.dispatch(MoviesAction.setPopular(results))
+    }
+    
+    func setUpcoming(_ results: [MovieResult]) {
+        self.store?.dispatch(MoviesAction.setUpcoming(results))
+    }
+    
+    func setFilteredMovies(_ results: [MovieResult]) {
+        self.store?.dispatch(MoviesAction.setFilteredMovies(results))
+    }
+    
+    func setVideoId(_ videoId: String) {
+        self.store?.dispatch(MoviesAction.setVideoId(videoId))
+    }
+
+    func setImageData(movie: MovieResult) {
+        self.store?.dispatch(MoviesAction.setImageData(movie: movie))
+    }
+    
+}
+
+final class MoviesStateUseCase: MoviesUseCaseInput {
+    
+    private weak var store: ReduxStore<MoviesState>? = nil
+    let presenter: MoviesUseCaseOutput?
+    
+    init(store: ReduxStore<MoviesState>? = nil,
+         presenter: MoviesUseCaseOutput? = nil) {
+        self.store = store
+        self.presenter = presenter
     }
     
     func getTopRated(page: Int = 1) {
@@ -120,10 +169,6 @@ final class MoviesStateUseCase: MoviesUseCases {
             self.getFilteredMovies(text: store.state.model.searchText,
                                    page: store.state.model.searchPage + 1)
         }
-    }
-    
-    func setImageData(movie: MovieResult) {
-        self.store?.dispatch(MoviesAction.setImageData(movie: movie))
     }
     
     func getImageData(movie: MovieResult, completion: ((Data) -> Void)? = nil) {

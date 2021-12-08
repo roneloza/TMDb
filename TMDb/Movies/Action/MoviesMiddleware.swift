@@ -22,6 +22,8 @@ protocol MoviesMiddlewareDatasource: AnyObject {
 
 final class MoviesMiddleware: ReduxMiddleware<MoviesState>, MoviesMiddlewareDatasource {
     
+    private let presenter: MoviesUseCaseOutput?
+    
     private lazy var storeManager: StoreManagerMovie = {
         SQLiteStoreManagerMovie()
     }()
@@ -33,6 +35,10 @@ final class MoviesMiddleware: ReduxMiddleware<MoviesState>, MoviesMiddlewareData
     }()
     private weak var datasource: MoviesMiddlewareDatasource? {
         self
+    }
+    
+    init(presenter: MoviesUseCaseOutput? = nil) {
+        self.presenter = presenter
     }
     
     override func handleDispatch(action: ReduxAction, store: DispatcherObject, parent: DispatcherObject?) {
@@ -66,19 +72,19 @@ final class MoviesMiddleware: ReduxMiddleware<MoviesState>, MoviesMiddlewareData
                     case .failure:
                         if let results = self.storeManager.selectMovies(by: .topRated,
                                                                         page: page) {
-                            self.store?.dispatch(MoviesAction.setTopRated(results))
+                            self.presenter?.setTopRated(results)
                         }
                     case .finished:
                         break
                     }
                 }, receiveValue: { data in
                     guard let response = self.decodeManager.decode(data: data, type: MovieResponse.self) else {
-                        self.store?.dispatch(MoviesAction.setTopRated([]))
+                        self.presenter?.setTopRated([])
                         return
                     }
                     let results = response.results.map { $0.build(categoryType: .topRated) }
                     self.storeManager.insertMovies(movies: results)
-                    self.store?.dispatch(MoviesAction.setTopRated(results))
+                    self.presenter?.setTopRated(results)
                 })
                 .store(in: &self.subscriptions)
         }
@@ -92,19 +98,19 @@ final class MoviesMiddleware: ReduxMiddleware<MoviesState>, MoviesMiddlewareData
                     case .failure:
                         if let results = self.storeManager.selectMovies(by: .popular,
                                                                         page: page) {
-                            self.store?.dispatch(MoviesAction.setPopular(results))
+                            self.presenter?.setPopular(results)
                         }
                     case .finished:
                         break
                     }
                 }, receiveValue: { data in
                     guard let response = self.decodeManager.decode(data: data, type: MovieResponse.self) else {
-                        self.store?.dispatch(MoviesAction.setPopular([]))
+                        self.presenter?.setPopular([])
                         return
                     }
                     let results = response.results.map { $0.build(categoryType: .popular) }
                     self.storeManager.insertMovies(movies: results)
-                    self.store?.dispatch(MoviesAction.setPopular(results))
+                    self.presenter?.setPopular(results)
                 })
                 .store(in: &self.subscriptions)
         }
@@ -118,19 +124,19 @@ final class MoviesMiddleware: ReduxMiddleware<MoviesState>, MoviesMiddlewareData
                     case .failure:
                         if let results = self.storeManager.selectMovies(by: .upcoming,
                                                                         page: page) {
-                            self.store?.dispatch(MoviesAction.setUpcoming(results))
+                            self.presenter?.setUpcoming(results)
                         }
                     case .finished:
                         break
                     }
                 }, receiveValue: { data in
                     guard let response = self.decodeManager.decode(data: data, type: MovieResponse.self) else {
-                        self.store?.dispatch(MoviesAction.setUpcoming([]))
+                        self.presenter?.setUpcoming([])
                         return
                     }
                     let results = response.results.map { $0.build(categoryType: .upcoming) }
                     self.storeManager.insertMovies(movies: results)
-                    self.store?.dispatch(MoviesAction.setUpcoming(results))
+                    self.presenter?.setUpcoming(results)
                 })
                 .store(in: &self.subscriptions)
         }
@@ -144,18 +150,18 @@ final class MoviesMiddleware: ReduxMiddleware<MoviesState>, MoviesMiddlewareData
                     case .failure:
                         if let results = self.storeManager.selectMovies(by: text,
                                                                         page: page) {
-                            self.store?.dispatch(MoviesAction.setFilteredMovies(results))
+                            self.presenter?.setFilteredMovies(results)
                         }
                     case .finished:
                         break
                     }
                 }, receiveValue: { data in
                     guard let response = self.decodeManager.decode(data: data, type: MovieResponse.self) else {
-                        self.store?.dispatch(MoviesAction.setFilteredMovies([]))
+                        self.presenter?.setFilteredMovies([])
                         return
                     }
                     self.storeManager.insertMovies(movies: response.results)
-                    self.store?.dispatch(MoviesAction.setFilteredMovies(response.results))
+                    self.presenter?.setFilteredMovies(response.results)
                 })
                 .store(in: &self.subscriptions)
         }
@@ -185,7 +191,7 @@ final class MoviesMiddleware: ReduxMiddleware<MoviesState>, MoviesMiddlewareData
                     }
                     let videoId = response.results.last?.key ?? ""
                     completion?(videoId)
-                    self.store?.dispatch(MoviesAction.setVideoId(videoId))
+                    self.presenter?.setVideoId(videoId)
                 })
                 .store(in: &self.subscriptions)
         }

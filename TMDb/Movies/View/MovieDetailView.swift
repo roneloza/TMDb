@@ -11,7 +11,7 @@ import PrograManiacsSwiftUI
 
 struct MovieDetailView: View {
     
-    private weak var useCase: MoviesUseCases? = nil
+    private weak var useCase: MoviesUseCaseInput? = nil
     private let movie: MovieResult
     
     var body: some View {
@@ -28,7 +28,7 @@ struct MovieDetailView: View {
                                         })
                                   },
                                   completionSetImage: { data in
-                                    self.useCase?.setImageData(movie: movie.build(imageData: data))
+                                    self.useCase?.presenter?.setImageData(movie: movie.build(imageData: data))
                                   })
                             .aspectRatio(contentMode: .fit)
                             .cornerRadius(8)
@@ -74,7 +74,7 @@ struct MovieDetailView: View {
         }
     }
     
-    init(useCase: MoviesUseCases? = nil,
+    init(useCase: MoviesUseCaseInput? = nil,
          movie: MovieResult) {
         self.useCase = useCase
         self.movie = movie

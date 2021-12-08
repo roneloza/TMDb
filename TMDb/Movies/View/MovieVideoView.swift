@@ -30,7 +30,7 @@ struct YoutubeWebView : UIViewRepresentable {
 
 struct MovieVideoView: View {
     
-    private weak var useCase: MoviesUseCases? = nil
+    private weak var useCase: MoviesUseCaseInput? = nil
     private let movie: MovieResult
     @State private var videoId: String = ""
     
@@ -49,7 +49,7 @@ struct MovieVideoView: View {
         }
     }
     
-    init(useCase: MoviesUseCases? = nil,
+    init(useCase: MoviesUseCaseInput? = nil,
          movie: MovieResult) {
         self.useCase = useCase
         self.movie = movie
