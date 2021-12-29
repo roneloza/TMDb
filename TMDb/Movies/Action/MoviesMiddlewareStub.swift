@@ -9,20 +9,20 @@ import ReduxCore
 import Foundation
 import Combine
 
-final class MoviesMiddlewareStub: MoviesMiddlewareDatasource {
+final class MoviesMiddlewareStub: MoviesMiddlewareDatasource, MiddlewareListenerObject {
     
     private let result: Result<Data, Error>
-    private var subscriptions = Set<AnyCancellable>()
-    private lazy var networkManager: NetworkManager = {
-        URLSessionNetworkManagerStub(returning: self.result)
-    }()
-    private lazy var decodeManager: DecodeManager = {
-        JsonDecodeManager()
-    }()
+    public private(set) var subscriptions = Set<AnyCancellable>()
+    private let networkManager: NetworkManager
+    private let decodeManager: DecodeManager
     var results: [MovieResult] = []
     var videoMovieResult: VideoMovieResult = .init(key: "")
     
-    init(returning result: Result<Data, Error>) {
+    init(networkManager: NetworkManager,
+         decodeManager: DecodeManager,
+         returning result: Result<Data, Error>) {
+        self.networkManager = networkManager
+        self.decodeManager = decodeManager
         self.result = result
     }
     

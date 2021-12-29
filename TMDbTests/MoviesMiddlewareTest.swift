@@ -62,7 +62,10 @@ class MoviesMiddlewareTest: XCTestCase {
     }
     """
         let data = try XCTUnwrap(json.data(using: .utf8))
-        let moviesMiddleware = MoviesMiddlewareStub(returning: .success(data))
+        let result: Result<Data, Error> = .success(data)
+        let moviesMiddleware = MoviesMiddlewareStub(networkManager: URLSessionNetworkManagerStub(returning: result),
+                                                    decodeManager: JsonDecodeManager(),
+                                                    returning: result)
         let expectation = XCTestExpectation(description: "Publishes decoded TopRated")
         moviesMiddleware.getTopRated()
         XCTAssertEqual(moviesMiddleware.results.count, 2)

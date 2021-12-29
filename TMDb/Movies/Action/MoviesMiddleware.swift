@@ -18,45 +18,42 @@ protocol MoviesMiddlewareDatasource: AnyObject {
     func getImageData(movie: MovieResult, completion: ((Data) -> Void)?)
     func getFilteredMovies(text: String, page: Int)
     func getVideo(movieId: Int64, completion: ((_ videoId: String) -> Void)?)
+    
 }
 
 final class MoviesMiddleware: ReduxMiddleware<MoviesState>, MoviesMiddlewareDatasource {
     
-    private let presenter: MoviesUseCaseOutput?
+    private let presenter: MoviesUseCaseOutput?    
+    private let storeManager: StoreManagerMovie
+    private let networkManager: NetworkManager
+    private let decodeManager: DecodeManager
     
-    private lazy var storeManager: StoreManagerMovie = {
-        SQLiteStoreManagerMovie()
-    }()
-    private lazy var networkManager: NetworkManager = {
-        URLSessionNetworkManager()
-    }()
-    private lazy var decodeManager: DecodeManager = {
-        JsonDecodeManager()
-    }()
-    private weak var datasource: MoviesMiddlewareDatasource? {
-        self
-    }
-    
-    init(presenter: MoviesUseCaseOutput? = nil) {
+    init(storeManager: StoreManagerMovie,
+         networkManager: NetworkManager,
+         decodeManager: DecodeManager,
+         presenter: MoviesUseCaseOutput? = nil) {
+        self.storeManager = storeManager
+        self.networkManager = networkManager
+        self.decodeManager = decodeManager
         self.presenter = presenter
     }
     
     override func handleDispatch(action: ReduxAction, store: DispatcherObject, parent: DispatcherObject?) {
         switch action {
         case let MoviesAction.getTopRated(page):
-            self.datasource?.getTopRated(page: page)
+            self.getTopRated(page: page)
         case let MoviesAction.getPopular(page):
-            self.datasource?.getPopular(page: page)
+            self.getPopular(page: page)
         case let MoviesAction.getUpcoming(page):
-            self.datasource?.getUpcoming(page: page)
+            self.getUpcoming(page: page)
         case let MoviesAction.setImageData(movie):
-            self.datasource?.setImageData(movie: movie)
+            self.setImageData(movie: movie)
         case let MoviesAction.getImageData(movie, completion):
-            self.datasource?.getImageData(movie: movie, completion: completion)
+            self.getImageData(movie: movie, completion: completion)
         case let MoviesAction.getFilteredMovies(text, page):
-            self.datasource?.getFilteredMovies(text: text, page: page)
+            self.getFilteredMovies(text: text, page: page)
         case let MoviesAction.getVideo(movieId, completion):
-            self.datasource?.getVideo(movieId: movieId, completion: completion)
+            self.getVideo(movieId: movieId, completion: completion)
         default:
             break
         }

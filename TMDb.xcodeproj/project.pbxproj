@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		39125832277C315200BA5ED2 /* MoviesStateUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39125831277C315200BA5ED2 /* MoviesStateUseCase.swift */; };
+		39125834277C31A400BA5ED2 /* MoviesStatePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39125833277C31A400BA5ED2 /* MoviesStatePresenter.swift */; };
+		39125836277C3DE400BA5ED2 /* MoviesVMUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39125835277C3DE400BA5ED2 /* MoviesVMUseCase.swift */; };
+		39125838277C41AA00BA5ED2 /* MoviesVMPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39125837277C41AA00BA5ED2 /* MoviesVMPresenter.swift */; };
 		CE0137E527562B3100316778 /* VideoMovieResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0137E427562B3100316778 /* VideoMovieResponse.swift */; };
 		CE0BF66227560BA1006FF46D /* MovieCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0BF66127560BA1006FF46D /* MovieCategory.swift */; };
 		CE0BF66827560BB6006FF46D /* MovieResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0BF66727560BB6006FF46D /* MovieResult.swift */; };
@@ -81,6 +85,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		39125831277C315200BA5ED2 /* MoviesStateUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesStateUseCase.swift; sourceTree = "<group>"; };
+		39125833277C31A400BA5ED2 /* MoviesStatePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesStatePresenter.swift; sourceTree = "<group>"; };
+		39125835277C3DE400BA5ED2 /* MoviesVMUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesVMUseCase.swift; sourceTree = "<group>"; };
+		39125837277C41AA00BA5ED2 /* MoviesVMPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesVMPresenter.swift; sourceTree = "<group>"; };
 		CE0137E427562B3100316778 /* VideoMovieResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoMovieResponse.swift; sourceTree = "<group>"; };
 		CE0BF66127560BA1006FF46D /* MovieCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCategory.swift; sourceTree = "<group>"; };
 		CE0BF66727560BB6006FF46D /* MovieResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieResult.swift; sourceTree = "<group>"; };
@@ -299,6 +307,10 @@
 			isa = PBXGroup;
 			children = (
 				CED7115E275E7A4800A4F4EB /* MoviesUseCase.swift */,
+				39125831277C315200BA5ED2 /* MoviesStateUseCase.swift */,
+				39125835277C3DE400BA5ED2 /* MoviesVMUseCase.swift */,
+				39125833277C31A400BA5ED2 /* MoviesStatePresenter.swift */,
+				39125837277C41AA00BA5ED2 /* MoviesVMPresenter.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -445,12 +457,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				39125838277C41AA00BA5ED2 /* MoviesVMPresenter.swift in Sources */,
 				CE0BF66C27560BD5006FF46D /* MovieCategoryType.swift in Sources */,
 				CEA85F652756C7A400C26693 /* URLSessionNetworkManagerStub.swift in Sources */,
 				CE0137E527562B3100316778 /* VideoMovieResponse.swift in Sources */,
+				39125832277C315200BA5ED2 /* MoviesStateUseCase.swift in Sources */,
 				CEA50519274EE9BF005BE8D3 /* MoviesState.swift in Sources */,
 				CE91D90927500B0D003EA71C /* URLBuilder.swift in Sources */,
 				CED7115A275E785E00A4F4EB /* MoviesStateModel.swift in Sources */,
+				39125834277C31A400BA5ED2 /* MoviesStatePresenter.swift in Sources */,
 				CEA50513274EE99A005BE8D3 /* MoviesAction.swift in Sources */,
 				CEA85F612756C71D00C26693 /* MoviesMiddlewareStub.swift in Sources */,
 				CE0BF67027560BEC006FF46D /* MovieResponse.swift in Sources */,
@@ -468,6 +483,7 @@
 				CE0BF66227560BA1006FF46D /* MovieCategory.swift in Sources */,
 				CEC89A39274F47F9006291F7 /* SQLiteStoreManager.swift in Sources */,
 				CEA50520274EE9F8005BE8D3 /* MoviesReducer.swift in Sources */,
+				39125836277C3DE400BA5ED2 /* MoviesVMUseCase.swift in Sources */,
 				CECC7141274F150F00AE8FEA /* TMDbConstants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -793,7 +809,7 @@
 			repositoryURL = "https://github.com/roneloza/ReduxCore.git";
 			requirement = {
 				kind = exactVersion;
-				version = 1.0.0;
+				version = 1.0.1;
 			};
 		};
 		CEA5054D274EF6F4005BE8D3 /* XCRemoteSwiftPackageReference "PrograManiacsSwiftUI" */ = {

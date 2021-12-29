@@ -14,17 +14,16 @@ struct TMDbApp: App {
     
     var body: some Scene {
         WindowGroup {
-            MoviesView(store: .init(
-                        state: .init(
-                            model: MoviesStateModel(categories: [
-                                .init(id: MovieCategoryType.topRated,
-                                      movies: []),
-                                .init(id: MovieCategoryType.popular,
-                                      movies: []),
-                                .init(id: MovieCategoryType.upcoming,
-                                      movies: [])
-                            ])),
-                        reducer: MoviesReducer()))
+            MoviesView(presenter: .init(
+                state: .init(
+                    model: MoviesStateModel(categories: [
+                        .init(id: MovieCategoryType.topRated,
+                              movies: []),
+                        .init(id: MovieCategoryType.popular,
+                              movies: []),
+                        .init(id: MovieCategoryType.upcoming,
+                              movies: [])
+                    ]))))
         }
     }
     

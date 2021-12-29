@@ -28,7 +28,7 @@ struct MovieDetailView: View {
                                         })
                                   },
                                   completionSetImage: { data in
-                                    self.useCase?.presenter?.setImageData(movie: movie.build(imageData: data))
+                                    self.useCase?.setImageData(movie: movie.build(imageData: data))
                                   })
                             .aspectRatio(contentMode: .fit)
                             .cornerRadius(8)
